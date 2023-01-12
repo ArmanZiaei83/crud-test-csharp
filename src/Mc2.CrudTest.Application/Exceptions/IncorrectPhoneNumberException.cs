@@ -2,7 +2,7 @@
 
 namespace Mc2.CrudTest.Application.Exceptions
 {
-    public class IncorrectPhoneNumberException : Exception
+    public class InvalidPhoneNumberException : Exception
     {
     }
 }

@@ -18,5 +18,20 @@ namespace Mc2.CrudTest.Persistence.Repositories.Customers
         {
             _customers.Add(customer);
         }
+
+        public Task<GetCustomerDto> Get(int id)
+        { 
+            return _customers.Where(_ => _.Id == id)
+                .Select(_ => new GetCustomerDto
+                {
+                    Id = _.Id,
+                    FirstName = _.FirstName,
+                    LastName = _.LastName,
+                    PhoneNumber = _.PhoneNumber,
+                    DateOfBirth = _.DateOfBirth,
+                    Email = _.Email,
+                    BankAccountNumber = _.BankAccountNumber
+                }).FirstOrDefaultAsync();
+        }
     }
 }

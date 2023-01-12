@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace Mc2.CrudTest.Infrastructure.Shared.Validations;
+namespace Mc2.CrudTest.Infrastructure.Shared.Validations.Attributes;
 
 public class ValidateEmailAttribute : ValidationAttribute
 {
     public override string FormatErrorMessage(string name)
     {
-        return base.FormatErrorMessage("invalid email");
+        return base.FormatErrorMessage("email");
     }
 
     public override bool IsValid(object? emailValue)

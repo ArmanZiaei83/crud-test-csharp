@@ -1,16 +1,25 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Runtime.CompilerServices;
+using PhoneNumbers;
 
 namespace Mc2.CrudTest.Infrastructure.Shared.Validations
 {
     public static class PhoneNumberValidator
     {
-        public static bool IsValid(string phoneNumber)
+        public static bool IsValid(string mobileNumber, string countryCode)
         {
-            var mobileNumber = phoneNumber.TrimStart('0');
-            var number = $"0{mobileNumber}";
-            var pattern =
-                new Regex(@"^(09)([0|1|2|3][1-9]{1}[0-9]{3}[0-9]{4})$");
-            return pattern.IsMatch(number);
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
+            PhoneNumber parsedMobileNumber;
+
+            try
+            {
+                parsedMobileNumber = phoneUtil.Parse(mobileNumber, countryCode);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+            return phoneUtil.IsValidNumber(parsedMobileNumber);
         }
     }
 }

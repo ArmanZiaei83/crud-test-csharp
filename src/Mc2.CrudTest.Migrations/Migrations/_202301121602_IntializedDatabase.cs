@@ -5,8 +5,8 @@ using FluentMigrator.Expressions;
 
 namespace Mc2.CrudTest.Migrations.Migrations
 {
-    [Migration(202208202202)]
-    public class _202208202202_IntializedDatabase : Migration
+    [Migration(202301121602)]
+    public class _202301121602_IntializedDatabase : Migration
     {
         public override void Up()
         {
@@ -28,8 +28,8 @@ namespace Mc2.CrudTest.Migrations.Migrations
                 .WithColumn("LastName").AsString().NotNullable()
                 .WithColumn("DateOfBirth").AsDate().NotNullable()
                 .WithColumn("PhoneNumber").AsString(15).NotNullable()
-                .WithColumn("Email").AsString(50).NotNullable()
-                .WithColumn("BankAccountNumber").AsString(50).NotNullable();
+                .WithColumn("Email").AsString(100).NotNullable().Unique()
+                .WithColumn("BankAccountNumber").AsString(18).NotNullable();
 
             Create.UniqueConstraint("CustomerNameAndDateOfBirth")
                 .OnTable("Customers")

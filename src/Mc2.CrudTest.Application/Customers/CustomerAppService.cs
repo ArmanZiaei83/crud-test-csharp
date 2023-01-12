@@ -23,6 +23,8 @@ namespace Mc2.CrudTest.Application.Customers
 
         public async Task<int> Register(RegisterCustomerDto dto)
         {
+            StopIfPhoneNumberIsInvalid(dto);
+
             var customer = new Customer
             {
                 FirstName = dto.FirstName,
@@ -37,6 +39,24 @@ namespace Mc2.CrudTest.Application.Customers
             await _unitOfWork.Complete();
 
             return customer.Id;
+        }
+
+        public Task<GetCustomerDto> Get()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<GetCustomerDto> Get(int id)
+        {
+            return await _repository.Get(id);
+        }
+
+        private void StopIfPhoneNumberIsInvalid(RegisterCustomerDto dto)
+        {
+            var phoneNumberIsValid = PhoneNumberValidator.IsValid(
+                dto.PhoneNumber,
+                dto.CountryCallingCode);
+            if (!phoneNumberIsValid) throw new InvalidPhoneNumberException();
         }
     }
 }

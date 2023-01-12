@@ -14,9 +14,10 @@ namespace Mc2.CrudTest.AcceptanceTests.TestTools
                 FirstName = "dummy-first-name",
                 LastName = "dummy-last-name",
                 DateOfBirth = new DateTime(2020, 2, 2),
-                PhoneNumber = "09397136812",
+                PhoneNumber = "+989397136812",
                 Email = "dummy@gmail.com",
-                BankAccountNumber = "12312312312323"
+                BankAccountNumber = "12312312312323",
+                CountryCallingCode = "98"
             };
         }
 
@@ -52,6 +53,12 @@ namespace Mc2.CrudTest.AcceptanceTests.TestTools
         public RegisterCustomerDtoBuilder WithPhoneNumber(string phoneNumber)
         {
             _dto.PhoneNumber = phoneNumber;
+            return this;
+        }
+
+        public RegisterCustomerDtoBuilder WithCountryCallingCode(string countryCallingCode)
+        {
+            _dto.CountryCallingCode = countryCallingCode;
             return this;
         }
 

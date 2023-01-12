@@ -7,7 +7,7 @@ public class ValidateBankAccountNumberAttribute : ValidationAttribute
 {
     public override string FormatErrorMessage(string name)
     {
-        return base.FormatErrorMessage("invalid bank account number");
+        return base.FormatErrorMessage("bank account number");
     }
 
     public override bool IsValid(object? bankAccountNumberValue)
