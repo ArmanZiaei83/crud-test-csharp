@@ -6,7 +6,7 @@ using Mc2.CrudTest.Persistence.UnitOfWork;
 
 namespace Mc2.CrudTest.AcceptanceTests.TestTools
 {
-    public static class CustomerServiceFactory
+    public static class CustomerFactory
     {
         public static CustomerAppService CreateService(EFDataContext dataContext)
         {
