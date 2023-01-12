@@ -1,4 +1,6 @@
-﻿public class GetCustomerDto
+﻿namespace Mc2.CrudTest.Application.DTOs.Customers;
+
+public class GetCustomerDto
 {
     public int Id { get; set; }
     public string FirstName { get; set; }

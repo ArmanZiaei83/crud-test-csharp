@@ -77,7 +77,7 @@ namespace Mc2.CrudTest.AcceptanceTests
         [InlineData("98", "+9893971368")]
         [InlineData("98", "+9890171")]
         public async Task
-            Register_throws_InvalidPhoneNumberException_when_phone_num(
+            Register_throws_InvalidPhoneNumberException_when_phone_number_is_invalid(
                 string countryCallingCode, string invalidPhoneNumber)
         {
             var dto = new RegisterCustomerDtoBuilder()
@@ -104,8 +104,36 @@ namespace Mc2.CrudTest.AcceptanceTests
             actualResult.FirstName.Should().Be(customer.FirstName);
             actualResult.LastName.Should().Be(customer.LastName);
             actualResult.DateOfBirth.Should().Be(customer.DateOfBirth);
-            actualResult.BankAccountNumber.Should().Be(customer.BankAccountNumber);
+            actualResult.BankAccountNumber.Should()
+                .Be(customer.BankAccountNumber);
             actualResult.PhoneNumber.Should().Be(customer.PhoneNumber);
+        }
+
+        [Fact]
+        public async Task Update_updates_customer_properly()
+        {
+            var customer = CustomerFactory.Create();
+            Save(customer);
+            var dto = new UpdateCustomerDtoBuilder()
+                .WithFirstName("Arman")
+                .WithLastName("Ziaei")
+                .WithEmail("arman@gmail.com")
+                .WithBankAccountNumber("4037997432954623")
+                .WithPhoneNumber("+989397136812")
+                .WithCountryCallingCode("98")
+                .WithDateOfBirth(new DateTime(2020, 02, 02))
+                .Build();
+
+            await _sut.Update(customer.Id, dto);
+
+            var actualResult = _readDataContext.Customers
+                .Single(_ => _.Id == customer.Id);
+            actualResult.FirstName.Should().Be(dto.FirstName);
+            actualResult.LastName.Should().Be(dto.LastName);
+            actualResult.DateOfBirth.Should().Be(dto.DateOfBirth);
+            actualResult.PhoneNumber.Should().Be(dto.PhoneNumber);
+            actualResult.Email.Should().Be(dto.Email);
+            actualResult.BankAccountNumber.Should().Be(dto.BankAccountNumber);
         }
     }
 }

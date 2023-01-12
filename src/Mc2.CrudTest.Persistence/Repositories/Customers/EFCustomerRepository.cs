@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Application.Interfaces.Repositories;
+﻿using Mc2.CrudTest.Application.DTOs.Customers;
+using Mc2.CrudTest.Application.Interfaces.Repositories;
 using Mc2.CrudTest.Domain.Entities;
 using Mc2.CrudTest.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,11 @@ namespace Mc2.CrudTest.Persistence.Repositories.Customers
                     Email = _.Email,
                     BankAccountNumber = _.BankAccountNumber
                 }).FirstOrDefaultAsync();
+        }
+
+        public async Task<Customer> Find(int id)
+        {
+            return await _customers.FindAsync(id);
         }
     }
 }

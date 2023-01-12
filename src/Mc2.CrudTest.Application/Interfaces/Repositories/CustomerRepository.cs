@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Domain.Entities;
+﻿using Mc2.CrudTest.Application.DTOs.Customers;
+using Mc2.CrudTest.Domain.Entities;
 
 namespace Mc2.CrudTest.Application.Interfaces.Repositories
 {
@@ -6,5 +7,6 @@ namespace Mc2.CrudTest.Application.Interfaces.Repositories
     {
         void Add(Customer customer);
         Task<GetCustomerDto> Get(int id);
+        Task<Customer> Find(int id);
     }
 }
