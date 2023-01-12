@@ -5,5 +5,6 @@ namespace Mc2.CrudTest.Application.Interfaces.Repositories
 {
     public interface CustomerRepository : IRepository
     {
+        void Add(Customer customer);
     }
 }

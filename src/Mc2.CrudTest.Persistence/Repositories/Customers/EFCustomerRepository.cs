@@ -13,5 +13,10 @@ namespace Mc2.CrudTest.Persistence.Repositories.Customers
         {
             _customers = dataContext.Customers;
         }
+
+        public void Add(Customer customer)
+        {
+            _customers.Add(customer);
+        }
     }
 }

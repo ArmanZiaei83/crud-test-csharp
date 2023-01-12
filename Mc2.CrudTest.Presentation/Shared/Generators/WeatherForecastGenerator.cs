@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mc2.CrudTest.Domain.Generators
+namespace Mc2.CrudTest.Shared.Generators
 {
     public static class WeatherForecastGenerator
     {
