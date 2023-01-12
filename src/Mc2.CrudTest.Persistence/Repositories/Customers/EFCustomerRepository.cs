@@ -44,5 +44,10 @@ namespace Mc2.CrudTest.Persistence.Repositories.Customers
         {
             return await _customers.AnyAsync(_ => _.Id == id);
         }
+
+        public void Delete(Customer customer)
+        {
+            _customers.Remove(customer);
+        }
     }
 }

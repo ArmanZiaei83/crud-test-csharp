@@ -151,5 +151,17 @@ namespace Mc2.CrudTest.AcceptanceTests
             await actualResult.Should()
                 .ThrowExactlyAsync<CustomerNotFoundException>();
         }
+
+        [Fact]
+        public async Task Delete_deletes_customer_properly()
+        {
+            var customer = CustomerFactory.Create();
+            Save(customer);
+
+            await _sut.Delete(customer.Id);
+
+            _readDataContext.Customers.Should()
+                .NotContain(_ => _.Id == customer.Id);
+        }
     }
 }

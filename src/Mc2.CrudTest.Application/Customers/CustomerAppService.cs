@@ -42,11 +42,6 @@ namespace Mc2.CrudTest.Application.Customers
             return customer.Id;
         }
 
-        public Task<GetCustomerDto> Get()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<GetCustomerDto> Get(int id)
         {
             return await _repository.Get(id);
@@ -65,6 +60,14 @@ namespace Mc2.CrudTest.Application.Customers
             customer.PhoneNumber = dto.PhoneNumber;
             customer.BankAccountNumber = dto.BankAccountNumber;
             customer.DateOfBirth = dto.DateOfBirth;
+
+            await _unitOfWork.Complete();
+        }
+
+        public async Task Delete(int id)
+        {
+            var customer = await _repository.Find(id);
+            _repository.Delete(customer);
 
             await _unitOfWork.Complete();
         }
