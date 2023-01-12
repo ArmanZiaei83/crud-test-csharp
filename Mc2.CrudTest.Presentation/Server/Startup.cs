@@ -37,7 +37,7 @@ namespace Mc2.CrudTest.Presentation.Server
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
-                    new OpenApiInfo { Title = "WebApi", Version = "v1" });
+                    new OpenApiInfo { Title = "Mc2.Crud", Version = "v1" });
             });
         }
 
@@ -83,7 +83,7 @@ namespace Mc2.CrudTest.Presentation.Server
             app.UseStaticFiles();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mc2.Crud v1"));
 
             app.UseRouting();
 

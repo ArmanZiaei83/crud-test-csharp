@@ -12,7 +12,7 @@ using Mc2.CrudTest.Shared.Generators;
 namespace Mc2.CrudTest.Presentation.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("customers")]
     public class CustomerController : ControllerBase
     {
         private readonly CustomerService _service;
@@ -26,6 +26,12 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
         public async Task<int> Register(RegisterCustomerDto dto)
         {
             return await _service.Register(dto);
+        }
+
+        [HttpGet]
+        public async Task<GetCustomerDto> Get(int id)
+        {
+            return await _service.Get(id);
         }
     }
 }
