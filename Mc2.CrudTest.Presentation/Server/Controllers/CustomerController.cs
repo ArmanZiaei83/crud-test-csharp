@@ -33,5 +33,11 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
         {
             return await _service.Get(id);
         }
+
+        [HttpPut]
+        public async Task Update(int id, UpdateCustomerDto dto)
+        {
+            await _service.Update(id, dto);
+        }
     }
 }
