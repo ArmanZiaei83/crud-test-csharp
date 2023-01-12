@@ -39,5 +39,11 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
         {
             await _service.Update(id, dto);
         }
+        
+        [HttpDelete]
+        public async Task Update(int id)
+        {
+            await _service.Delete(id);
+        }
     }
 }
