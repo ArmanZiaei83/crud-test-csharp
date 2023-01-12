@@ -39,5 +39,10 @@ namespace Mc2.CrudTest.Persistence.Repositories.Customers
         {
             return await _customers.FindAsync(id);
         }
+
+        public async Task<bool> Exists(int id)
+        {
+            return await _customers.AnyAsync(_ => _.Id == id);
+        }
     }
 }

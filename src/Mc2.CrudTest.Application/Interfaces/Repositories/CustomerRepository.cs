@@ -8,5 +8,6 @@ namespace Mc2.CrudTest.Application.Interfaces.Repositories
         void Add(Customer customer);
         Task<GetCustomerDto> Get(int id);
         Task<Customer> Find(int id);
+        Task<bool> Exists(int id);
     }
 }

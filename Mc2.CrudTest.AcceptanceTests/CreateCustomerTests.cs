@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Mc2.CrudTest.AcceptanceTests.Infrastructures;
@@ -134,6 +135,21 @@ namespace Mc2.CrudTest.AcceptanceTests
             actualResult.PhoneNumber.Should().Be(dto.PhoneNumber);
             actualResult.Email.Should().Be(dto.Email);
             actualResult.BankAccountNumber.Should().Be(dto.BankAccountNumber);
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(0)]
+        public async Task
+            Update_throws_CustomerNotFoundException_when_customer_id_is_invalid(
+                int invalidCustomerId)
+        {
+            var dto = new UpdateCustomerDtoBuilder().Build();
+
+            Func<Task> actualResult = () => _sut.Update(invalidCustomerId, dto);
+
+            await actualResult.Should()
+                .ThrowExactlyAsync<CustomerNotFoundException>();
         }
     }
 }

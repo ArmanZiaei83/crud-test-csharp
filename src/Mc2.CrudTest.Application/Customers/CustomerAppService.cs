@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Application.DTOs.Customers;
+﻿using System.Globalization;
+using Mc2.CrudTest.Application.DTOs.Customers;
 using Mc2.CrudTest.Application.Exceptions;
 using Mc2.CrudTest.Application.Interfaces;
 using Mc2.CrudTest.Application.Interfaces.Repositories;
@@ -53,6 +54,7 @@ namespace Mc2.CrudTest.Application.Customers
 
         public async Task Update(int id, UpdateCustomerDto dto)
         {
+            await StopIfCustomerNotFound(id);
             StopIfPhoneNumberIsInvalid(dto.PhoneNumber, dto.CountryCallingCode);
 
             var customer = await _repository.Find(id);
@@ -65,6 +67,12 @@ namespace Mc2.CrudTest.Application.Customers
             customer.DateOfBirth = dto.DateOfBirth;
 
             await _unitOfWork.Complete();
+        }
+
+        private async Task StopIfCustomerNotFound(int id)
+        {
+            var customerExists = await _repository.Exists(id);
+            if (!customerExists) throw new CustomerNotFoundException();
         }
 
         private void StopIfPhoneNumberIsInvalid(
