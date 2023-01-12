@@ -11,6 +11,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.Shared", "Mc2.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.Presentation.Server", "Mc2.CrudTest.Presentation\Server\Mc2.CrudTest.Presentation.Server.csproj", "{8D41010B-AEF1-4742-B7EC-6A5AE62C45FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Application", "src\Mc2.CrudTest.Application\Mc2.CrudTest.Application.csproj", "{FB219280-7E9C-4030-B20C-8017D06D7C9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Domain", "src\Mc2.CrudTest.Domain\Mc2.CrudTest.Domain.csproj", "{2D7C9DEC-2FB9-4532-92B3-BCA48EC88B60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Infrastructure.Shared", "src\Mc2.CrudTest.Infrastructure.Shared\Mc2.CrudTest.Infrastructure.Shared.csproj", "{454ADA89-BCA2-4482-BB2E-FE9BFF6F5B8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Migrations", "src\Mc2.CrudTest.Migrations\Mc2.CrudTest.Migrations.csproj", "{67251A2E-66C1-43D0-9445-39724DEBD66F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Persistence", "src\Mc2.CrudTest.Persistence\Mc2.CrudTest.Persistence.csproj", "{5D916856-E090-49DD-9C4A-36CDB1F91F28}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CCF2CA20-CE9C-4143-BD87-730E92E9130D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,11 +45,38 @@ Global
 		{8D41010B-AEF1-4742-B7EC-6A5AE62C45FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D41010B-AEF1-4742-B7EC-6A5AE62C45FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D41010B-AEF1-4742-B7EC-6A5AE62C45FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB219280-7E9C-4030-B20C-8017D06D7C9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB219280-7E9C-4030-B20C-8017D06D7C9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB219280-7E9C-4030-B20C-8017D06D7C9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB219280-7E9C-4030-B20C-8017D06D7C9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D7C9DEC-2FB9-4532-92B3-BCA48EC88B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D7C9DEC-2FB9-4532-92B3-BCA48EC88B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D7C9DEC-2FB9-4532-92B3-BCA48EC88B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D7C9DEC-2FB9-4532-92B3-BCA48EC88B60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{454ADA89-BCA2-4482-BB2E-FE9BFF6F5B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454ADA89-BCA2-4482-BB2E-FE9BFF6F5B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{454ADA89-BCA2-4482-BB2E-FE9BFF6F5B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{454ADA89-BCA2-4482-BB2E-FE9BFF6F5B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67251A2E-66C1-43D0-9445-39724DEBD66F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67251A2E-66C1-43D0-9445-39724DEBD66F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67251A2E-66C1-43D0-9445-39724DEBD66F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67251A2E-66C1-43D0-9445-39724DEBD66F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D916856-E090-49DD-9C4A-36CDB1F91F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D916856-E090-49DD-9C4A-36CDB1F91F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D916856-E090-49DD-9C4A-36CDB1F91F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D916856-E090-49DD-9C4A-36CDB1F91F28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B5A26C9-68C1-49D9-9F32-AF907A1730C2}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB219280-7E9C-4030-B20C-8017D06D7C9B} = {CCF2CA20-CE9C-4143-BD87-730E92E9130D}
+		{2D7C9DEC-2FB9-4532-92B3-BCA48EC88B60} = {CCF2CA20-CE9C-4143-BD87-730E92E9130D}
+		{454ADA89-BCA2-4482-BB2E-FE9BFF6F5B8F} = {CCF2CA20-CE9C-4143-BD87-730E92E9130D}
+		{67251A2E-66C1-43D0-9445-39724DEBD66F} = {CCF2CA20-CE9C-4143-BD87-730E92E9130D}
+		{5D916856-E090-49DD-9C4A-36CDB1F91F28} = {CCF2CA20-CE9C-4143-BD87-730E92E9130D}
 	EndGlobalSection
 EndGlobal
