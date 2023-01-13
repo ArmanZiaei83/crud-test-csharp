@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Mc2.CrudTest.Domain
+namespace Mc2.CrudTest.Shared
 {
     public class WeatherForecast
     {
@@ -15,10 +15,11 @@ namespace Mc2.CrudTest.Domain
 
         public override string ToString()
         {
-            return $"Weather Forecast: [{nameof(Date)}: {Date.ToString(CultureInfo.CurrentCulture)}\n" +
-                   $"{nameof(TemperatureC)}: {TemperatureC.ToString()}\n" +
-                   $"{nameof(TemperatureF)}: {TemperatureF.ToString()}\n" +
-                   $"{nameof(Summary)}: {Summary} ]";
+            return
+                $"Weather Forecast: [{nameof(Date)}: {Date.ToString(CultureInfo.CurrentCulture)}\n" +
+                $"{nameof(TemperatureC)}: {TemperatureC.ToString()}\n" +
+                $"{nameof(TemperatureF)}: {TemperatureF.ToString()}\n" +
+                $"{nameof(Summary)}: {Summary} ]";
         }
     }
 }

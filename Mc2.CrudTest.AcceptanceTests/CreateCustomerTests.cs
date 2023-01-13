@@ -1,15 +1,167 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using FluentAssertions;
+using Mc2.CrudTest.AcceptanceTests.Infrastructures;
+using Mc2.CrudTest.AcceptanceTests.TestTools;
+using Mc2.CrudTest.AcceptanceTests.TestTools.Builders;
+using Mc2.CrudTest.Application.DTOs.Customers;
+using Mc2.CrudTest.Application.Exceptions;
+using Mc2.CrudTest.Application.Interfaces.Services;
+using Mc2.CrudTest.Domain.Entities;
 using Xunit;
 
 namespace Mc2.CrudTest.AcceptanceTests
 {
-    public class BddTddTests
+    public class BddTddTests : TestProvider
     {
-        [Fact]
-        public void CreateCustomerValid_ReturnsSuccess()
+        private readonly CustomerService _sut;
+
+        public BddTddTests()
         {
-            // Todo: Refer to readme.md 
+            _sut = CustomerFactory.CreateService(_dataContext);
         }
 
-        // Please create more tests based on project requirements as per in readme.md
+        [Fact]
+        public async Task CreateCustomerValid_ReturnsSuccess()
+        {
+            RegisterCustomerDto dto = new RegisterCustomerDtoBuilder()
+                .Build();
+
+            int userId = await _sut.Register(dto);
+
+            Customer actualResult = _readDataContext.Customers
+                .Single(_ => _.Id == userId);
+            actualResult.FirstName.Should().Be(dto.FirstName);
+            actualResult.LastName.Should().Be(dto.LastName);
+            actualResult.DateOfBirth.Should().Be(dto.DateOfBirth);
+            actualResult.PhoneNumber.Should().Be(dto.PhoneNumber);
+            actualResult.Email.Should().Be(dto.Email);
+            actualResult.BankAccountNumber.Should().Be(dto.BankAccountNumber);
+        }
+
+        [Fact]
+        [Given("No customer is defined")]
+        [When(
+            "I add a customer with first name 'Arman', last name 'Ziaei', " +
+            "phone number '09397136812', email 'arman@gmail.com', " +
+            "bank account number '4037997432954623', and date of birth '2020-02-02'")]
+        [Then(
+            "There must be a customer with first name 'arman', last name 'ziaei', " +
+            "phone number '09397136812', email 'arman@gmail.com', " +
+            "bank account number '4037997432954623', and date of birth '2020-02-02' in customers list")]
+        public async Task Register_registers_a_customer_properly()
+        {
+            RegisterCustomerDto dto = new RegisterCustomerDtoBuilder()
+                .WithFirstName("Arman")
+                .WithLastName("Ziaei")
+                .WithEmail("arman@gmail.com")
+                .WithBankAccountNumber("4037997432954623")
+                .WithPhoneNumber("+989397136812")
+                .WithCountryCallingCode("98")
+                .WithDateOfBirth(new DateTime(2020, 02, 02))
+                .Build();
+
+            int userId = await _sut.Register(dto);
+
+            Customer actualResult = _readDataContext.Customers
+                .Single(_ => _.Id == userId);
+            actualResult.FirstName.Should().Be(dto.FirstName);
+            actualResult.LastName.Should().Be(dto.LastName);
+            actualResult.DateOfBirth.Should().Be(dto.DateOfBirth);
+            actualResult.PhoneNumber.Should().Be(dto.PhoneNumber);
+            actualResult.Email.Should().Be(dto.Email);
+            actualResult.BankAccountNumber.Should().Be(dto.BankAccountNumber);
+        }
+
+        [Theory]
+        [InlineData("98", "+9893971368")]
+        [InlineData("98", "+9890171")]
+        public async Task
+            Register_throws_InvalidPhoneNumberException_when_phone_number_is_invalid(
+                string countryCallingCode, string invalidPhoneNumber)
+        {
+            RegisterCustomerDto dto = new RegisterCustomerDtoBuilder()
+                .WithCountryCallingCode(countryCallingCode)
+                .WithPhoneNumber(invalidPhoneNumber)
+                .Build();
+
+            Func<Task> actualResult = () => _sut.Register(dto);
+
+            await actualResult.Should()
+                .ThrowExactlyAsync<InvalidPhoneNumberException>();
+        }
+
+        [Fact]
+        public async Task Get_gets_customer_by_id_properly()
+        {
+            Customer customer = CustomerFactory.Create();
+            Save(customer);
+
+            GetCustomerDto actualResult = await _sut.Get(customer.Id);
+
+            actualResult.Id.Should().Be(customer.Id);
+            actualResult.Email.Should().Be(customer.Email);
+            actualResult.FirstName.Should().Be(customer.FirstName);
+            actualResult.LastName.Should().Be(customer.LastName);
+            actualResult.DateOfBirth.Should().Be(customer.DateOfBirth);
+            actualResult.BankAccountNumber.Should()
+                .Be(customer.BankAccountNumber);
+            actualResult.PhoneNumber.Should().Be(customer.PhoneNumber);
+        }
+
+        [Fact]
+        public async Task Update_updates_customer_properly()
+        {
+            Customer customer = CustomerFactory.Create();
+            Save(customer);
+            UpdateCustomerDto dto = new UpdateCustomerDtoBuilder()
+                .WithFirstName("Arman")
+                .WithLastName("Ziaei")
+                .WithEmail("arman@gmail.com")
+                .WithBankAccountNumber("4037997432954623")
+                .WithPhoneNumber("+989397136812")
+                .WithCountryCallingCode("98")
+                .WithDateOfBirth(new DateTime(2020, 02, 02))
+                .Build();
+
+            await _sut.Update(customer.Id, dto);
+
+            Customer actualResult = _readDataContext.Customers
+                .Single(_ => _.Id == customer.Id);
+            actualResult.FirstName.Should().Be(dto.FirstName);
+            actualResult.LastName.Should().Be(dto.LastName);
+            actualResult.DateOfBirth.Should().Be(dto.DateOfBirth);
+            actualResult.PhoneNumber.Should().Be(dto.PhoneNumber);
+            actualResult.Email.Should().Be(dto.Email);
+            actualResult.BankAccountNumber.Should().Be(dto.BankAccountNumber);
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(0)]
+        public async Task
+            Update_throws_CustomerNotFoundException_when_customer_id_is_invalid(
+                int invalidCustomerId)
+        {
+            UpdateCustomerDto dto = new UpdateCustomerDtoBuilder().Build();
+
+            Func<Task> actualResult = () => _sut.Update(invalidCustomerId, dto);
+
+            await actualResult.Should()
+                .ThrowExactlyAsync<CustomerNotFoundException>();
+        }
+
+        [Fact]
+        public async Task Delete_deletes_customer_properly()
+        {
+            Customer customer = CustomerFactory.Create();
+            Save(customer);
+
+            await _sut.Delete(customer.Id);
+
+            _readDataContext.Customers.Should()
+                .NotContain(_ => _.Id == customer.Id);
+        }
     }
 }
