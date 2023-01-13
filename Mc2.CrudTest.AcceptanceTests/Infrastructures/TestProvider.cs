@@ -10,7 +10,7 @@ namespace Mc2.CrudTest.AcceptanceTests.Infrastructures
 
         protected TestProvider()
         {
-            var memoryDatabase = new EFInMemoryDatabase();
+            EFInMemoryDatabase memoryDatabase = new EFInMemoryDatabase();
             _dataContext = memoryDatabase.CreateDataContext<EFDataContext>();
             _readDataContext =
                 memoryDatabase.CreateDataContext<EFDataContext>();

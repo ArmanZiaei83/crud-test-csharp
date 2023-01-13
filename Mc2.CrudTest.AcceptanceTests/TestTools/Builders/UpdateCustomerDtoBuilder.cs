@@ -1,7 +1,7 @@
 ﻿using System;
 using Mc2.CrudTest.Application.DTOs.Customers;
 
-namespace Mc2.CrudTest.AcceptanceTests.TestTools
+namespace Mc2.CrudTest.AcceptanceTests.TestTools.Builders
 {
     public class UpdateCustomerDtoBuilder
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using Mc2.CrudTest.Application.Customers;
 using Mc2.CrudTest.Domain.Entities;
 using Mc2.CrudTest.Persistence.Contexts;
@@ -10,10 +9,12 @@ namespace Mc2.CrudTest.AcceptanceTests.TestTools
 {
     public static class CustomerFactory
     {
-        public static CustomerAppService CreateService(EFDataContext dataContext)
+        public static CustomerAppService CreateService(
+            EFDataContext dataContext)
         {
-            var repository = new EFCustomerRepository(dataContext);
-            var unitOfWork = new EFUnitOfWork(dataContext);
+            EFCustomerRepository repository =
+                new EFCustomerRepository(dataContext);
+            EFUnitOfWork unitOfWork = new EFUnitOfWork(dataContext);
             return new CustomerAppService(unitOfWork, repository);
         }
 

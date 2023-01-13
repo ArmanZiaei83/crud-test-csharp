@@ -12,7 +12,7 @@ public class ValidateBankAccountNumberAttribute : ValidationAttribute
 
     public override bool IsValid(object? bankAccountNumberValue)
     {
-        var bankAccountNumber = bankAccountNumberValue.ToString();
+        string? bankAccountNumber = bankAccountNumberValue.ToString();
         if (string.IsNullOrEmpty(bankAccountNumber)) return false;
 
         Regex regex = new("^[0-9]{9,18}$");

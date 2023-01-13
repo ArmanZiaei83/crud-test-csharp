@@ -1,14 +1,14 @@
 using System;
 using System.Linq;
-using System.Runtime.Intrinsics.Arm;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Mc2.CrudTest.AcceptanceTests.Infrastructures;
 using Mc2.CrudTest.AcceptanceTests.TestTools;
+using Mc2.CrudTest.AcceptanceTests.TestTools.Builders;
+using Mc2.CrudTest.Application.DTOs.Customers;
 using Mc2.CrudTest.Application.Exceptions;
 using Mc2.CrudTest.Application.Interfaces.Services;
-using Microsoft.EntityFrameworkCore;
-using PhoneNumbers;
+using Mc2.CrudTest.Domain.Entities;
 using Xunit;
 
 namespace Mc2.CrudTest.AcceptanceTests
@@ -25,12 +25,12 @@ namespace Mc2.CrudTest.AcceptanceTests
         [Fact]
         public async Task CreateCustomerValid_ReturnsSuccess()
         {
-            var dto = new RegisterCustomerDtoBuilder()
+            RegisterCustomerDto dto = new RegisterCustomerDtoBuilder()
                 .Build();
 
-            var userId = await _sut.Register(dto);
+            int userId = await _sut.Register(dto);
 
-            var actualResult = _readDataContext.Customers
+            Customer actualResult = _readDataContext.Customers
                 .Single(_ => _.Id == userId);
             actualResult.FirstName.Should().Be(dto.FirstName);
             actualResult.LastName.Should().Be(dto.LastName);
@@ -52,7 +52,7 @@ namespace Mc2.CrudTest.AcceptanceTests
             "bank account number '4037997432954623', and date of birth '2020-02-02' in customers list")]
         public async Task Register_registers_a_customer_properly()
         {
-            var dto = new RegisterCustomerDtoBuilder()
+            RegisterCustomerDto dto = new RegisterCustomerDtoBuilder()
                 .WithFirstName("Arman")
                 .WithLastName("Ziaei")
                 .WithEmail("arman@gmail.com")
@@ -62,9 +62,9 @@ namespace Mc2.CrudTest.AcceptanceTests
                 .WithDateOfBirth(new DateTime(2020, 02, 02))
                 .Build();
 
-            var userId = await _sut.Register(dto);
+            int userId = await _sut.Register(dto);
 
-            var actualResult = _readDataContext.Customers
+            Customer actualResult = _readDataContext.Customers
                 .Single(_ => _.Id == userId);
             actualResult.FirstName.Should().Be(dto.FirstName);
             actualResult.LastName.Should().Be(dto.LastName);
@@ -81,7 +81,7 @@ namespace Mc2.CrudTest.AcceptanceTests
             Register_throws_InvalidPhoneNumberException_when_phone_number_is_invalid(
                 string countryCallingCode, string invalidPhoneNumber)
         {
-            var dto = new RegisterCustomerDtoBuilder()
+            RegisterCustomerDto dto = new RegisterCustomerDtoBuilder()
                 .WithCountryCallingCode(countryCallingCode)
                 .WithPhoneNumber(invalidPhoneNumber)
                 .Build();
@@ -95,10 +95,10 @@ namespace Mc2.CrudTest.AcceptanceTests
         [Fact]
         public async Task Get_gets_customer_by_id_properly()
         {
-            var customer = CustomerFactory.Create();
+            Customer customer = CustomerFactory.Create();
             Save(customer);
 
-            var actualResult = await _sut.Get(customer.Id);
+            GetCustomerDto actualResult = await _sut.Get(customer.Id);
 
             actualResult.Id.Should().Be(customer.Id);
             actualResult.Email.Should().Be(customer.Email);
@@ -113,9 +113,9 @@ namespace Mc2.CrudTest.AcceptanceTests
         [Fact]
         public async Task Update_updates_customer_properly()
         {
-            var customer = CustomerFactory.Create();
+            Customer customer = CustomerFactory.Create();
             Save(customer);
-            var dto = new UpdateCustomerDtoBuilder()
+            UpdateCustomerDto dto = new UpdateCustomerDtoBuilder()
                 .WithFirstName("Arman")
                 .WithLastName("Ziaei")
                 .WithEmail("arman@gmail.com")
@@ -127,7 +127,7 @@ namespace Mc2.CrudTest.AcceptanceTests
 
             await _sut.Update(customer.Id, dto);
 
-            var actualResult = _readDataContext.Customers
+            Customer actualResult = _readDataContext.Customers
                 .Single(_ => _.Id == customer.Id);
             actualResult.FirstName.Should().Be(dto.FirstName);
             actualResult.LastName.Should().Be(dto.LastName);
@@ -144,7 +144,7 @@ namespace Mc2.CrudTest.AcceptanceTests
             Update_throws_CustomerNotFoundException_when_customer_id_is_invalid(
                 int invalidCustomerId)
         {
-            var dto = new UpdateCustomerDtoBuilder().Build();
+            UpdateCustomerDto dto = new UpdateCustomerDtoBuilder().Build();
 
             Func<Task> actualResult = () => _sut.Update(invalidCustomerId, dto);
 
@@ -155,7 +155,7 @@ namespace Mc2.CrudTest.AcceptanceTests
         [Fact]
         public async Task Delete_deletes_customer_properly()
         {
-            var customer = CustomerFactory.Create();
+            Customer customer = CustomerFactory.Create();
             Save(customer);
 
             await _sut.Delete(customer.Id);

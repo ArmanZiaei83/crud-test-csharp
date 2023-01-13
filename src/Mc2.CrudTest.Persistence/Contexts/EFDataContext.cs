@@ -1,41 +1,40 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mc2.CrudTest.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Mc2.CrudTest.Domain.Entities;
 
-namespace Mc2.CrudTest.Persistence.Contexts
+namespace Mc2.CrudTest.Persistence.Contexts;
+
+public class EFDataContext : DbContext
 {
-    public class EFDataContext : DbContext
+    public EFDataContext(DbContextOptions<EFDataContext> options) : base(
+        options)
     {
-        public EFDataContext(DbContextOptions<EFDataContext> options) : base(
-            options)
-        {
-        }
+    }
 
-        public EFDataContext(string connectionString)
-            : this(new DbContextOptionsBuilder<EFDataContext>()
-                .UseSqlServer(connectionString).Options)
-        {
-        }
+    public EFDataContext(string connectionString)
+        : this(new DbContextOptionsBuilder<EFDataContext>()
+            .UseSqlServer(connectionString).Options)
+    {
+    }
 
-        public override ChangeTracker ChangeTracker
+    public override ChangeTracker ChangeTracker
+    {
+        get
         {
-            get
-            {
-                var tracker = base.ChangeTracker;
-                tracker.LazyLoadingEnabled = false;
-                tracker.AutoDetectChangesEnabled = true;
-                tracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
-                return tracker;
-            }
+            ChangeTracker? tracker = base.ChangeTracker;
+            tracker.LazyLoadingEnabled = false;
+            tracker.AutoDetectChangesEnabled = true;
+            tracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+            return tracker;
         }
+    }
 
-        public DbSet<Customer> Customers { get; set; }
+    public DbSet<Customer> Customers { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(EFDataContext)
-                .Assembly);
-        }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(EFDataContext)
+            .Assembly);
     }
 }

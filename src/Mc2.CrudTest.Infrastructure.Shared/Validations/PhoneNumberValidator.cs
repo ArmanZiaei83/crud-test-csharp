@@ -1,25 +1,16 @@
-﻿using System.Runtime.CompilerServices;
-using PhoneNumbers;
+﻿using PhoneNumbers;
 
-namespace Mc2.CrudTest.Infrastructure.Shared.Validations
+namespace Mc2.CrudTest.Infrastructure.Shared.Validations;
+
+public static class PhoneNumberValidator
 {
-    public static class PhoneNumberValidator
+    public static bool IsValid(string mobileNumber, string countryCode)
     {
-        public static bool IsValid(string mobileNumber, string countryCode)
-        {
-            PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
-            PhoneNumber parsedMobileNumber;
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
+        PhoneNumber parsedMobileNumber;
 
-            try
-            {
-                parsedMobileNumber = phoneUtil.Parse(mobileNumber, countryCode);
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+        parsedMobileNumber = phoneUtil.Parse(mobileNumber, countryCode);
 
-            return phoneUtil.IsValidNumber(parsedMobileNumber);
-        }
+        return phoneUtil.IsValidNumber(parsedMobileNumber);
     }
 }

@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Mc2.CrudTest.Application.DTOs.Customers;
 using Mc2.CrudTest.Application.Interfaces.Services;
-using Mc2.CrudTest.Shared;
-using Mc2.CrudTest.Shared.Generators;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Mc2.CrudTest.Presentation.Server.Controllers
 {
@@ -39,7 +33,7 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
         {
             await _service.Update(id, dto);
         }
-        
+
         [HttpDelete]
         public async Task Update(int id)
         {

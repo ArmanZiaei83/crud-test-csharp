@@ -7,7 +7,6 @@ using Mc2.CrudTest.Persistence.Contexts;
 using Mc2.CrudTest.Persistence.Repositories.Customers;
 using Mc2.CrudTest.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +22,8 @@ namespace Mc2.CrudTest.Presentation.Server
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _connectionString = configuration.GetConnectionString("dbConnectionString");
+            _connectionString =
+                configuration.GetConnectionString("dbConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -52,7 +52,8 @@ namespace Mc2.CrudTest.Presentation.Server
                 .AsSelf()
                 .InstancePerLifetimeScope();
 
-            container.RegisterAssemblyTypes(typeof(EFCustomerRepository).Assembly)
+            container
+                .RegisterAssemblyTypes(typeof(EFCustomerRepository).Assembly)
                 .AssignableTo<IRepository>()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();

@@ -6,10 +6,10 @@
         <Nullable>enable</Nullable>
         <LangVersion>10</LangVersion>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <ProjectReference Include="..\Mc2.CrudTest.Domain\Mc2.CrudTest.Domain.csproj" />
-        <ProjectReference Include="..\Mc2.CrudTest.Infrastructure.Shared\Mc2.CrudTest.Infrastructure.Shared.csproj" />
+        <ProjectReference Include="..\Mc2.CrudTest.Domain\Mc2.CrudTest.Domain.csproj"/>
+        <ProjectReference Include="..\Mc2.CrudTest.Infrastructure.Shared\Mc2.CrudTest.Infrastructure.Shared.csproj"/>
     </ItemGroup>
 
 </Project>

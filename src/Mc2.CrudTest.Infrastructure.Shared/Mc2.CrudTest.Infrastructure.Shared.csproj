@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="libphonenumber-csharp" Version="8.13.4" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+        <PackageReference Include="libphonenumber-csharp" Version="8.13.4"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0"/>
     </ItemGroup>
 
 </Project>

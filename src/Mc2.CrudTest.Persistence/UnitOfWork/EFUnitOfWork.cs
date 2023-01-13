@@ -1,42 +1,40 @@
-﻿using System.Threading.Tasks;
-using Mc2.CrudTest.Application.Interfaces;
+﻿using Mc2.CrudTest.Application.Interfaces;
 using Mc2.CrudTest.Persistence.Contexts;
 
-namespace Mc2.CrudTest.Persistence.UnitOfWork
+namespace Mc2.CrudTest.Persistence.UnitOfWork;
+
+public class EFUnitOfWork : IUnitOfWork
 {
-    public class EFUnitOfWork : IUnitOfWork
+    private readonly EFDataContext? _dataContext;
+
+    public EFUnitOfWork(EFDataContext? dataContext)
     {
-        private readonly EFDataContext? _dataContext;
+        _dataContext = dataContext;
+    }
 
-        public EFUnitOfWork(EFDataContext? dataContext)
-        {
-            _dataContext = dataContext;
-        }
+    public async Task Begin()
+    {
+        await _dataContext.Database.BeginTransactionAsync();
+    }
 
-        public async Task Begin()
-        {
-            await _dataContext.Database.BeginTransactionAsync();
-        }
+    public void CommitPartial()
+    {
+        _dataContext.SaveChanges();
+    }
 
-        public void CommitPartial()
-        {
-            _dataContext.SaveChanges();
-        }
+    public async Task Commit()
+    {
+        await _dataContext.SaveChangesAsync();
+        await _dataContext.Database.CommitTransactionAsync();
+    }
 
-        public async Task Commit()
-        {
-            await _dataContext.SaveChangesAsync();
-            await _dataContext.Database.CommitTransactionAsync();
-        }
+    public async Task Rollback()
+    {
+        await _dataContext.Database.RollbackTransactionAsync();
+    }
 
-        public async Task Rollback()
-        {
-            await _dataContext.Database.RollbackTransactionAsync();
-        }
-
-        public async Task Complete()
-        {
-            await _dataContext.SaveChangesAsync();
-        }
+    public async Task Complete()
+    {
+        await _dataContext.SaveChangesAsync();
     }
 }

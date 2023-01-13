@@ -1,6 +1,5 @@
-﻿namespace Mc2.CrudTest.Application.Interfaces.Services
+﻿namespace Mc2.CrudTest.Application.Interfaces.Services;
+
+public interface IService
 {
-    public interface IService
-    {
-    }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using Mc2.CrudTest.Application.DTOs.Customers;
 
-namespace Mc2.CrudTest.AcceptanceTests.TestTools
+namespace Mc2.CrudTest.AcceptanceTests.TestTools.Builders
 {
     public class RegisterCustomerDtoBuilder
     {
-        private RegisterCustomerDto _dto;
+        private readonly RegisterCustomerDto _dto;
 
         public RegisterCustomerDtoBuilder()
         {
@@ -32,13 +32,15 @@ namespace Mc2.CrudTest.AcceptanceTests.TestTools
             _dto.LastName = lastName;
             return this;
         }
-        
+
         public RegisterCustomerDtoBuilder WithEmail(string email)
         {
             _dto.Email = email;
             return this;
         }
-        public RegisterCustomerDtoBuilder WithBankAccountNumber(string backAccountNumber)
+
+        public RegisterCustomerDtoBuilder WithBankAccountNumber(
+            string backAccountNumber)
         {
             _dto.BankAccountNumber = backAccountNumber;
             return this;
@@ -56,7 +58,8 @@ namespace Mc2.CrudTest.AcceptanceTests.TestTools
             return this;
         }
 
-        public RegisterCustomerDtoBuilder WithCountryCallingCode(string countryCallingCode)
+        public RegisterCustomerDtoBuilder WithCountryCallingCode(
+            string countryCallingCode)
         {
             _dto.CountryCallingCode = countryCallingCode;
             return this;

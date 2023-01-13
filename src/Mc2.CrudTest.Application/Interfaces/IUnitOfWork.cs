@@ -1,13 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿namespace Mc2.CrudTest.Application.Interfaces;
 
-namespace Mc2.CrudTest.Application.Interfaces
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task Begin();
-        void CommitPartial();
-        Task Commit();
-        Task Rollback();
-        Task Complete();
-    }
+    Task Begin();
+    void CommitPartial();
+    Task Commit();
+    Task Rollback();
+    Task Complete();
 }

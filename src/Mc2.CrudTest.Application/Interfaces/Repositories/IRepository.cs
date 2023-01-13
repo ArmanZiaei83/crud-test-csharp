@@ -1,6 +1,5 @@
-﻿namespace Mc2.CrudTest.Application.Interfaces.Repositories
+﻿namespace Mc2.CrudTest.Application.Interfaces.Repositories;
+
+public interface IRepository
 {
-    public interface IRepository
-    {
-    }
 }
